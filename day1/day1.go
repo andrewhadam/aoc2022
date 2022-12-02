@@ -7,6 +7,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"sort"
 	"strconv"
 
 	"github.com/adam-lavrik/go-imath/ix"
@@ -18,10 +19,17 @@ var calorieCount int = 0
 
 func main() {
 	readConfig(configFilep1)
-	fmt.Println("D1P1: " + day1Answer())
+	fmt.Println("D1P1: " + day1P1Answer())
+	fmt.Println("D1P2: " + day1P2Answer())
 }
 
-func day1Answer() string {
+func day1P2Answer() string {
+	sort.Sort(sort.Reverse(sort.IntSlice(elfCalories)))
+
+	return strconv.Itoa((elfCalories[0] + elfCalories[1] + elfCalories[2]))
+}
+
+func day1P1Answer() string {
 	return strconv.Itoa(ix.MaxSlice(elfCalories))
 }
 
