@@ -1,5 +1,6 @@
 // Day 1 -
 // Part #1 - Find the elf who is carrying the most calorie
+// Part #2 - Find the top three elves carrying the most calories
 
 package main
 
