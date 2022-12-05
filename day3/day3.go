@@ -29,7 +29,7 @@ func main() {
 	readConfig(configFilep1)
 	readThreeWayConfig(configFilep1)
 
-	//fmt.Println("D3P1: " + day3P1Answer())
+	fmt.Println("D3P1: " + day3P1Answer())
 	fmt.Println("D3P2: " + day3P2Answer())
 }
 
@@ -38,16 +38,11 @@ func day3P2Answer() string {
 	for _, v := range myThreeWayRucksack {
 		r := []rune(v.common)
 		var r3 = r[0]
-		fmt.Println("Day2 answer " + string(r3))
-		fmt.Println(r3)
 		if unicode.IsUpper(r3) {
 			// This is -64 to set to 1 and then + 26 to set to 27 as a baseline
 			sumThreeSacks += (int(r3) - 38)
-			fmt.Println("It is uppercase")
 		} else {
 			sumThreeSacks += (int(r3) - 96)
-			fmt.Println("It is not uppercase")
-			fmt.Println(int(r3) - 96)
 
 		}
 	}
@@ -93,26 +88,30 @@ func readThreeWayConfig(f string) {
 	if err != nil {
 		fmt.Println(err)
 	}
-	fileScanner := bufio.NewReader(readFile)
+	fileScanner := bufio.NewScanner(readFile)
 
-	for {
-		fc, _, err := fileScanner.ReadLine()
-		if err != nil || len(fc) == 0 {
-			break
+	var count int = 0
+
+	var fc string
+	var sc string
+	var tc string
+
+	for fileScanner.Scan() {
+		count += 1
+		if count == 1 {
+			fc = fileScanner.Text()
+		} else if count == 2 {
+			sc = fileScanner.Text()
+		} else if count == 3 {
+			tc = fileScanner.Text()
+			myThreeWayRucksack = append(myThreeWayRucksack, threeWayRucksack{string(fc), string(sc), string(tc), compareThree(string(fc), string(sc), string(tc))})
+			count = 0
 		}
-		sc, _, _ := fileScanner.ReadLine()
-		tc, _, _ := fileScanner.ReadLine()
-
-		fmt.Printf("FC: %s \nsc: %s\ntc: %s\n", fc, sc, tc)
-
-		myThreeWayRucksack = append(myThreeWayRucksack, threeWayRucksack{string(fc), string(sc), string(tc), compareThree(string(fc), string(sc), string(tc))})
-
 	}
 	readFile.Close()
 }
 
 func compare(f, s string) string {
-	//	fmt.Println("Comparing " + f + " and " + s)
 	for _, fs := range f {
 		for _, ss := range s {
 			if string(fs) == string(ss) {
@@ -124,7 +123,6 @@ func compare(f, s string) string {
 }
 
 func compareThree(f, s, t string) string {
-	fmt.Println("Comparing " + f + " and " + s + " and " + t)
 	for _, fs := range f {
 		for _, ss := range s {
 			for _, ts := range t {
