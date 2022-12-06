@@ -34,7 +34,6 @@ func day3P2Answer() string {
 		sL, _ := strconv.Atoi(sSplit[0])
 		sR, _ := strconv.Atoi(sSplit[1])
 
-		//	fmt.Printf("fl: %d\nfr: %d\nsl: %d\nsr: %d\n", fL, fR, sL, sR)
 		if (fR >= sL && fR <= sR) || (fL >= sL && fL <= sR) || (sL >= fL && sL <= fR) {
 			count += 1
 		}
