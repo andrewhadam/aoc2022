@@ -28,7 +28,7 @@ func day6P2Answer() string {
 func day6P1Answer() string {
 	var answer string = ""
 
-	for i, _ := range input {
+	for i := range input {
 		if isAllUnique(input[i : i+4]) {
 			answer = strconv.Itoa(i + 4)
 			break
